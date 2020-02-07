@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="simulation_assembly">
+  <link
+    name="base">
+    <inertial>
+      <origin
+        xyz="0 2.157E-20 0.01515"
+        rpy="0 0 0" />
+      <mass
+        value="0.033918" />
+      <inertia
+        ixx="1.0837E-05"
+        ixy="0"
+        ixz="0"
+        iyy="5.1389E-06"
+        iyz="0"
+        izz="1.0786E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://simulation_assembly/meshes/base.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://simulation_assembly/meshes/base.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="right_arm">
+    <inertial>
+      <origin
+        xyz="0.02971 0 0.01865"
+        rpy="0 0 0" />
+      <mass
+        value="0.0039735" />
+      <inertia
+        ixx="5.23E-07"
+        ixy="0"
+        ixz="0"
+        iyy="1.161E-06"
+        iyz="0"
+        izz="6.47E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://simulation_assembly/meshes/right_arm.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://simulation_assembly/meshes/right_arm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_join"
+    type="revolute">
+    <origin
+      xyz="-0.0015 -0.0212 0.001"
+      rpy="0 0 -1.4465" />
+    <parent
+      link="base" />
+    <child
+      link="right_arm" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1.7"
+      upper="1.7"
+      effort="0.045"
+      velocity="6" />
+  </joint>
+  <link
+    name="left_arm">
+    <inertial>
+      <origin
+        xyz="0.02971 0 0.01865"
+        rpy="0 0 0" />
+      <mass
+        value="0.0039735" />
+      <inertia
+        ixx="5.23E-07"
+        ixy="0"
+        ixz="0"
+        iyy="1.161E-06"
+        iyz="0"
+        izz="6.47E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://simulation_assembly/meshes/left_arm.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.29804 0.29804 0.29804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://simulation_assembly/meshes/left_arm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_join"
+    type="revolute">
+    <origin
+      xyz="-0.0015 0.0212 0.001"
+      rpy="0 0 0.2635" />
+    <parent
+      link="base" />
+    <child
+      link="left_arm" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1.7"
+      upper="1.7"
+      effort="0.045"
+      velocity="6" />
+  </joint>
+</robot>
