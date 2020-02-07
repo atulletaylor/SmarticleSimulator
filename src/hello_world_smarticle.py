@@ -6,6 +6,7 @@ from pdb import set_trace as bp
 import numpy as np
 
 urdf_path = '../urdf/simulation_urdf2.urdf'
+ring_path = '../urdf/ring.urdf'
 
 def time_to_steps(time_s):
     return int(time_s*240)
@@ -20,6 +21,7 @@ cubeStartPos = [0,0,1]
 cubeStartOrientation = p.getQuaternionFromEuler([0,0,0])
 s1 = p.loadURDF(urdf_path, basePosition = [0.02,0.03,0])
 s2 = p.loadURDF(urdf_path, basePosition = [0,0,0])
+r = p.loadURDF(ring_path, basePosition = [0,0,0])
 
 R = [-1.57,1.57,1.57,-1.57]
 L = [1.57,1.57,-1.57,-1.57]
