@@ -12,6 +12,19 @@ ring_path = '../urdf/ring.urdf'
 def time_to_steps(time_s):
     return int(time_s*240)
 
+def is_eligible(s):
+    theta = s.x[-1]
+    ang = np.pi/6.
+    R1= [-(np.pi/2.-ang),np.pi/2.-ang]
+    R2= [-np.pi,-(np.pi+ang)]
+    R3= [np.pi/2.+ang,np.pi]
+    return ((R1[0]<= theta <= R1[1])
+            or (R2[0]<= theta <= R2[1])
+            or (R3[0]<= theta <= R3[1]))
+
+
+
+
 
 
 physicsClient = p.connect(p.GUI)#or p.DIRECT for non-graphical version
@@ -23,7 +36,7 @@ cubeStartOrientation = p.getQuaternionFromEuler([0,0,0])
 maxvel = 6.
 dt = time_to_steps(0.45)
 x = 0.02
-r = p.loadURDF(ring_path, basePosition = [0,0,0])
+r = p.loadURDF(ring_path, basePosition = [0,2,0])
 s1 = sso(p, urdf_path, maxvel, basePosition = [-0.027,x+0.03,0])
 s2 = sso(p, urdf_path, maxvel, basePosition = [-0.027,x+0,0])
 s3 = sso(p, urdf_path, maxvel, basePosition = [-0.027,x-0.03,0])
@@ -35,12 +48,20 @@ L = [1.7,1.7,-1.7,-1.7]
 for s in smarticles:
     s.load_gait(np.array([L,R]),dt)
 
-
+static_light_source = np.array([0,1,0])
+light_beam_angle = np.pi/6
 t_steps = time_to_steps(1200)
 for i in range (t_steps):
     p.stepSimulation()
-    time.sleep(1./240.)
+    for s in smarticles:
+        s.get_position()
+        if is_eligible(s):
+            s.set_plank(1)
+
+    time.sleep(1./2400.)
     if i%dt==s1.gait_phase:
+        cubePos, cubeOrn = p.getBasePositionAndOrientation(s1.id)
+        print(cubePos,p.getEulerFromQuaternion(cubeOrn))
         s1.motor_step()
     if i%dt==s2.gait_phase:
         s2.motor_step()
