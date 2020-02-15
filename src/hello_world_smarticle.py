@@ -50,8 +50,4 @@ for i in range (t_steps):
         s4.motor_step()
     if i%dt==s5.gait_phase:
         s5.motor_step()
-
-
-cubePos, cubeOrn = p.getBasePositionAndOrientation(s1)
-print(cubePos,cubeOrn)
 p.disconnect()
