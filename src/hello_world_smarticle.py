@@ -1,7 +1,7 @@
 import pybullet as p
 import time
 import pybullet_data
-from smarticle_simulation_object import SmarticleSimulationObject as sso
+from simulation_smarticle import SimulationSmarticle as ss
 
 import numpy as np
 
@@ -24,11 +24,11 @@ maxvel = 6.
 dt = time_to_steps(0.45)
 x = 0.02
 r = p.loadURDF(ring_path, basePosition = [0,0,0])
-s1 = sso(p, urdf_path, maxvel, basePosition = [-0.027,x+0.03,0])
-s2 = sso(p, urdf_path, maxvel, basePosition = [-0.027,x+0,0])
-s3 = sso(p, urdf_path, maxvel, basePosition = [-0.027,x-0.03,0])
-s4 = sso(p, urdf_path, maxvel, basePosition = [-0.027,x-0.06,0])
-s5 = sso(p, urdf_path, maxvel, basePosition = [-0.027,x-0.09,0])
+s1 = ss(p, urdf_path, maxvel, basePosition = [-0.027,x+0.03,0])
+s2 = ss(p, urdf_path, maxvel, basePosition = [-0.027,x+0,0])
+s3 = ss(p, urdf_path, maxvel, basePosition = [-0.027,x-0.03,0])
+s4 = ss(p, urdf_path, maxvel, basePosition = [-0.027,x-0.06,0])
+s5 = ss(p, urdf_path, maxvel, basePosition = [-0.027,x-0.09,0])
 smarticles = [s1, s2, s3, s4, s5]
 R = [-1.7,1.7,1.7,-1.7]
 L = [1.7,1.7,-1.7,-1.7]

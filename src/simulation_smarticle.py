@@ -3,8 +3,7 @@
 import numpy as np
 from pdb import set_trace as bp
 
-class SmarticleSimulationObject(object):
-    """docstring for SmarticleSimulationObject."""
+class SimulationSmarticle(object):
     MAX_VEL_RANGE = 0.2
     MAX_ANGLE_OFFSET = 0.5
 
