@@ -2,10 +2,18 @@
 
 import numpy as np
 from pdb import set_trace as bp
+import transforms as tf
 
 class SimulationSmarticle(object):
     MAX_VEL_RANGE = 0.2
     MAX_ANGLE_OFFSET = 0.5
+    PR_LOC = 1e-3*np.array([0,14.5])
+    RAY_BLOCK_POINTS = 1e-3*np.array([[0,-70.5],\
+                                      [0,-41],\
+                                      [0,-27.5],\
+                                      [0,27.5],\
+                                      [0,41],\
+                                      [0,70.5]])
 
     def __init__(self, p, urdf_path, max_vel,\
                  basePosition, baseOrientation= None):
@@ -20,6 +28,7 @@ class SimulationSmarticle(object):
         self.maxvel = (max_vel-self.MAX_VEL_RANGE/2.)*np.ones(2)\
             + self.MAX_VEL_RANGE*np.random.rand(2)
         self.control = self.p.POSITION_CONTROL
+        self.block_points = self.RAY_BLOCK_POINTS
         self.plank = 0
         self.arm_offset = self.MAX_ANGLE_OFFSET*np.random.rand(2)\
             - self.MAX_ANGLE_OFFSET/2.
@@ -54,6 +63,17 @@ class SimulationSmarticle(object):
         self.move_arms(posL, posR)
         self.gait_index = (self.gait_index+1)%self.n
 
-    def get_position(self):
+    def update_position(self):
         pos, orient = self.p.getBasePositionAndOrientation(self.id)
-        self.x = np.array([pos[0],pos[1],self.p.getEulerFromQuaternion(orient)[2]])
+        self.x[0:2]=np.array(pos[0:2])
+        self.x[2]=np.mod(np.pi/2+self.p.getEulerFromQuaternion(orient)[2],2*np.pi)
+        for ii in range(len(self.block_points)):
+            self.block_points[ii] = tf.transform_point(self.RAY_BLOCK_POINTS[ii],\
+                                                       self.x)
+        self.pr_loc = tf.transform_point(self.PR_LOC, self.x)
+        print('state')
+        print(self.x)
+        print('block points: ')
+        print(self.block_points)
+        print('photoresistor')
+        print(self.pr_loc)
