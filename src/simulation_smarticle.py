@@ -7,10 +7,16 @@ class SimulationSmarticle(object):
     MAX_VEL_RANGE = 0.2
     MAX_ANGLE_OFFSET = 0.5
 
-    def __init__(self, p, urdf_path, max_vel, basePosition):
+    def __init__(self, p, urdf_path, max_vel,\
+                 basePosition, baseOrientation= None):
 
         self.p = p
-        self.id = self.p.loadURDF(urdf_path, basePosition = basePosition)
+        self.x = np.zeros(3)
+        if baseOrientation is None:
+            baseOrientation = [0,0,0]
+        baseOrientation = self.p.getQuaternionFromEuler(baseOrientation)
+        self.id = self.p.loadURDF(urdf_path, basePosition = basePosition,\
+                                  baseOrientation = baseOrientation)
         self.maxvel = (max_vel-self.MAX_VEL_RANGE/2.)*np.ones(2)\
             + self.MAX_VEL_RANGE*np.random.rand(2)
         self.control = self.p.POSITION_CONTROL
