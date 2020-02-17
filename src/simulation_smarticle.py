@@ -66,7 +66,7 @@ class SimulationSmarticle(object):
     def update_position(self):
         pos, orient = self.p.getBasePositionAndOrientation(self.id)
         self.x[0:2]=np.array(pos[0:2])
-        self.x[2]=np.mod(np.pi/2+self.p.getEulerFromQuaternion(orient)[2],2*np.pi)
+        self.x[2]=np.mod(self.p.getEulerFromQuaternion(orient)[2],2*np.pi)
         for ii in range(len(self.block_points)):
             self.block_points[ii] = tf.transform_point(self.RAY_BLOCK_POINTS[ii],\
                                                        self.x)
