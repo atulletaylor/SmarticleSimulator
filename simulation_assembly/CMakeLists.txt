@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 
-project(REAL_visual_smarticle_meshes)
+project(simulation_assembly)
 
 find_package(catkin REQUIRED)
 
