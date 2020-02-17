@@ -16,12 +16,22 @@ class SimulationSmarticle(object):
                                       [0,70.5]])
 
     def __init__(self, p, urdf_path, max_vel,\
-                 basePosition, baseOrientation= None):
+                 basePosition=None, baseOrientation= None, max_r=30e-3):
 
         self.p = p
         self.x = np.zeros(3)
+        if basePosition is None:
+            basePosition = [0,0,0]
+        elif basePosition == 'random':
+            r = max_r*np.random.rand()
+            th = 2*np.pi*np.random.rand()
+            c,s = np.cos(th), np.sin(th)
+            basePosition = [r*c,r*s,0]
         if baseOrientation is None:
             baseOrientation = [0,0,0]
+        elif baseOrientation == 'random':
+            th = 2*np.pi*np.random.rand()
+            baseOrientation = [0,0,th]
         baseOrientation = self.p.getQuaternionFromEuler(baseOrientation)
         self.id = self.p.loadURDF(urdf_path, basePosition = basePosition,\
                                   baseOrientation = baseOrientation)
