@@ -6,24 +6,24 @@
   <link name="ring">
     <inertial>
       <origin
-        xyz="0 3.27385158845559E-18 0.005"
+        xyz="0 0.005"
         rpy="0 0 0" />
       <mass value="0.019132" />
       <inertia
         ixx="9.8734E-05"
-        ixy="1.1998E-35"
-        ixz="-6.44359999999999E-37"
+        ixy="0"
+        ixz="0"
         iyy="9.8734E-05"
-        iyz="6.02604294588915E-21"
+        iyz="0"
         izz="0.00019715" />
     </inertial>
     <visual>
       <origin
         xyz="0 0 0"
-        rpy="1.5707963267949 0 0" />
+        rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/ring2.obj" />
+          filename="../meshes/tall_ring.obj" />
       </geometry>
       <material
         name="">
@@ -34,10 +34,10 @@
     <collision>
       <origin
         xyz="0 0 0"
-        rpy="1.5707963267949 0 0" />
+        rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/ring2.obj" />
+          filename="../meshes/tall_ring.obj" />
       </geometry>
     </collision>
   </link>

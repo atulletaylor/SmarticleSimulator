@@ -2,6 +2,7 @@ import pybullet as p
 import time
 import pybullet_data
 from simulation_smarticle import SimulationSmarticle as ss
+from transforms import *
 
 from pdb import set_trace as bp
 
@@ -25,7 +26,7 @@ cubeStartOrientation = p.getQuaternionFromEuler([0,0,0])
 maxvel = 6.
 dt = time_to_steps(0.45)
 x = 0.02
-r = p.loadURDF(ring_path, basePosition = [0,0,0])
+r = p.loadURDF(ring_path, basePosition = [0,0,1])
 s1 = ss(p, urdf_path, maxvel, basePosition = [-0,0,0])
 # s2 = ss(p, urdf_path, maxvel, basePosition = [-0.027,x+0,0])
 # s3 = ss(p, urdf_path, maxvel, basePosition = [-0.027,x-0.03,0])
