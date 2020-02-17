@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com)
      Commit Version: 1.5.1-0-g916b5db  Build Version: 1.5.7152.31018
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
@@ -48,17 +48,17 @@
     name="arm_left">
     <inertial>
       <origin
-        xyz="0.02234 0 0.01515"
+        xyz="0.029809 -0.018645 5.48789273350911E-19"
         rpy="0 0 0" />
       <mass
-        value="0.0039735" />
+        value="0.0039781" />
       <inertia
-        ixx="3.0696E-07"
-        ixy="0"
+        ixx="5.233E-07"
+        ixy="-8.0787E-08"
         ixz="0"
-        iyy="1.2406E-06"
+        iyy="6.4754E-07"
         iyz="0"
-        izz="9.3957E-07" />
+        izz="1.1611E-06" />
     </inertial>
     <visual>
       <origin
@@ -106,17 +106,17 @@
     name="arm_right">
     <inertial>
       <origin
-        xyz="0.02234 0 0.01515"
+        xyz="0.029809 -0.018645 5.48789273350911E-19"
         rpy="0 0 0" />
       <mass
-        value="0.0039735" />
+        value="0.0039781" />
       <inertia
-        ixx="3.0696E-07"
-        ixy="0"
+        ixx="5.233E-07"
+        ixy="-8.0787E-08"
         ixz="0"
-        iyy="1.2406E-06"
+        iyy="6.4754E-07"
         iyz="0"
-        izz="9.3957E-07" />
+        izz="1.1611E-06" />
     </inertial>
     <visual>
       <origin
