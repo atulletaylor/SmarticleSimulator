@@ -27,16 +27,18 @@ maxvel = 6.
 dt = time_to_steps(0.45)
 x = 0.02
 r = p.loadURDF(ring_path, basePosition = [0,0,0])
-cid = p.createConstraint(r,-1,0,-1,p.JOINT_FIXED,[0,0,0],[0,0,0],[0,0,0])
-s1 = ss(p, urdf_path, maxvel, basePosition = 'random', baseOrientation = 'random')
-s2 = ss(p, urdf_path, maxvel, basePosition = 'random', baseOrientation = 'random')
-s3 = ss(p, urdf_path, maxvel, basePosition = 'random', baseOrientation = 'random')
-s4 = ss(p, urdf_path, maxvel, basePosition = 'random', baseOrientation = 'random')
-s5 = ss(p, urdf_path, maxvel, basePosition = 'random', baseOrientation = 'random')
-
+cid = p.createConstraint(r,-1,0,-1,p.JOINT_PRISMATIC,[0,0,0],[0,0,0],[0,0,0])
+dx = 0.032
+th = np.pi/2
+s1 = ss(p, urdf_path, maxvel, basePosition = [0,-2*dx,0], baseOrientation = [0,0,th])
+s2 = ss(p, urdf_path, maxvel, basePosition = [0,-dx,0], baseOrientation = [0,0,th])
+s3 = ss(p, urdf_path, maxvel, basePosition = [0,0,0], baseOrientation = [0,0,th])
+s4 = ss(p, urdf_path, maxvel, basePosition = [0,dx,0], baseOrientation = [0,0,th])
+s5 = ss(p, urdf_path, maxvel, basePosition = [0,2*dx,0], baseOrientation = [0,0,th])
+bp()
 smarticles = [s1]
 
-smarticles = [s1, s2, s3, s4, s5]
+smarticles = [s1, s2, s3, s4]
 
 R = [-1.7,1.7,1.7,-1.7]
 L = [1.7,1.7,-1.7,-1.7]
@@ -46,14 +48,15 @@ for s in smarticles:
 for i in range (480):
     p.stepSimulation()
 
-
+test = p.getDynamicsInfo(s1.id,0)
+bp()
 t_steps = time_to_steps(1200)
 for i in range (t_steps):
     p.stepSimulation()
     time.sleep(1./240.)
     if i%dt==s1.gait_phase:
         s1.motor_step()
-        s1.update_position()
+        # s1.update_position()
         # bp()
     if i%dt==s2.gait_phase:
         s2.motor_step()
@@ -61,6 +64,6 @@ for i in range (t_steps):
         s3.motor_step()
     if i%dt==s4.gait_phase:
         s4.motor_step()
-    if i%dt==s5.gait_phase:
-        s5.motor_step()
+    # if i%dt==s5.gait_phase:
+    #     s5.motor_step()
 p.disconnect()
