@@ -54,9 +54,9 @@ class SimulationSmarticle(object):
 
     def move_arms(self,posL, posR):
         self.p.setJointMotorControl2(self.id,0, self.control,\
-            targetPosition=posR, maxVelocity = int(self.maxvel[0]))
-        self.p.setJointMotorControl2(self.id,1, self.control,\
             targetPosition=posL, maxVelocity = int(self.maxvel[0]))
+        self.p.setJointMotorControl2(self.id,1, self.control,\
+            targetPosition=posR, maxVelocity = int(self.maxvel[0]))
 
     def set_plank(self, state):
         if state==1:
