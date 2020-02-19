@@ -62,6 +62,11 @@ class SimulationSmarticle(object):
             targetPosition=posR+self.arm_offset[1],\
             maxVelocity = int(self.maxvel[0]))
 
+    def move_random_corners(self):
+        posL = np.random.choice([-1.7,1.7])
+        posR = np.random.choice([-1.7,1.7])
+        self.move_arms(posL, posR)
+
     def set_plank(self, state):
         if state==1:
             self.plank = 1
