@@ -99,7 +99,7 @@
     <limit
       lower="-1.8"
       upper="1.8"
-      effort="0.03"
+      effort="0.025"
       velocity="6" />
   </joint>
   <link
@@ -157,7 +157,7 @@
     <limit
       lower="-1.8"
       upper="1.8"
-      effort="0.03"
+      effort="0.025"
       velocity="6" />
   </joint>
 </robot>

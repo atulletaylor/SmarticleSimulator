@@ -7,7 +7,7 @@ class Flashlight(object):
     """docstring for Flashlight."""
 
     def __init__(self,basePosition, pitch=0, beam_width=np.pi/12,\
-                ray_count=15, ray_length=1.2):
+                ray_count=100, ray_length=1.2):
         self.x = np.array(basePosition).astype(np.double)
         self.pitch = np.mod(pitch,2*np.pi)
         self.beam_width = beam_width
@@ -32,5 +32,6 @@ class Flashlight(object):
         for ii,th in enumerate(ray_angles):
             ray_to[ii] = self.x+ np.array([self.ray_len*np.cos(th),\
                                 self.ray_len*np.sin(th),0])
+            # p.addUserDebugLine(self.x, ray_to[ii], self.ray_miss_color)
 
-        return p.rayTestBatch(self.ray_from,ray_to, ii + 1)
+        return p.rayTestBatch(self.ray_from,ray_to)
