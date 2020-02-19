@@ -20,10 +20,10 @@
     <visual>
       <origin
         xyz="0 0 0"
-        rpy="1.5708 0 0" />
+        rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/ring.STL" />
+          filename="../meshes/20mm_ring.STL" />
       </geometry>
       <material
         name="">
@@ -37,7 +37,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/tall_ring2.obj" />
+          filename="../meshes/20mm_ring.obj" />
       </geometry>
     </collision>
   </link>

@@ -66,7 +66,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/arm.STL" />
+          filename="../meshes/ray_arm.STL" />
       </geometry>
       <material
         name="blue">
@@ -80,7 +80,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/arm.STL" />
+          filename="../meshes/ray_arm.STL" />
       </geometry>
     </collision>
   </link>
@@ -124,7 +124,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/arm.STL" />
+          filename="../meshes/ray_arm.STL" />
       </geometry>
       <material
         name="red">
@@ -138,7 +138,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/arm.STL" />
+          filename="../meshes/ray_arm.STL" />
       </geometry>
     </collision>
   </link>
