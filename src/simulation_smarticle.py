@@ -36,9 +36,9 @@ class SimulationSmarticle(object):
                                   baseOrientation = baseOrientation)
 
       # add randomness to smarticle params
-        self.maxvel = max_vel + self.MAX_VEL_RANGE*2.*(np.random.rand(2)-0.5)
+        self.maxvel = max_vel + self.MAX_VEL_RANGE*(2.*np.random.rand(2)-1.)
         self.control = self.p.POSITION_CONTROL
-        self.arm_offset = self.MAX_ANGLE_OFFSET*2.*(np.random.rand(2)-0.5)
+        self.arm_offset = self.MAX_ANGLE_OFFSET*(2.*np.random.rand(2)-1.)
 
         # set friction of arms to zero
         for joint in range(2):
