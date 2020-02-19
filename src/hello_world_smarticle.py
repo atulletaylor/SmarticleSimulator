@@ -2,7 +2,6 @@ import pybullet as p
 import time
 import pybullet_data
 from simulation_smarticle import SimulationSmarticle as ss
-from transforms import *
 
 from pdb import set_trace as bp
 
@@ -48,15 +47,13 @@ for s in smarticles:
 for i in range (480):
     p.stepSimulation()
 
-test = p.getDynamicsInfo(s1.id,0)
-bp()
 t_steps = time_to_steps(1200)
 for i in range (t_steps):
     p.stepSimulation()
     time.sleep(1./240.)
     if i%dt==s1.gait_phase:
         s1.motor_step()
-        # s1.update_position()
+        s1.update_position()
         # bp()
     if i%dt==s2.gait_phase:
         s2.motor_step()
