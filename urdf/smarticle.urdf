@@ -6,6 +6,10 @@
   name="simulation_assembly">
   <link
     name="base_link">
+    <contact>
+        <lateral_friction value="0.25"/>
+        <angular_friction value="0.25"/>
+    </contact>
     <inertial>
       <origin
         xyz="0 0 0.01515"
@@ -46,6 +50,9 @@
   </link>
   <link
     name="arm_left">
+    <contact>
+        <lateral_friction value="0"/>
+    </contact>
     <inertial>
       <origin
         xyz="0.029809 -0.018645 5.48789273350911E-19"
@@ -66,7 +73,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/ray_arm.STL" />
+          filename="../meshes/arm.STL" />
       </geometry>
       <material
         name="blue">
@@ -80,7 +87,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/ray_arm.STL" />
+          filename="../meshes/arm.STL" />
       </geometry>
     </collision>
   </link>
@@ -104,6 +111,9 @@
   </joint>
   <link
     name="arm_right">
+    <contact>
+        <lateral_friction value="0"/>
+    </contact>
     <inertial>
       <origin
         xyz="0.029809 -0.018645 5.48789273350911E-19"
@@ -124,7 +134,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/ray_arm.STL" />
+          filename="../meshes/arm.STL" />
       </geometry>
       <material
         name="red">
@@ -138,7 +148,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/ray_arm.STL" />
+          filename="../meshes/arm.STL" />
       </geometry>
     </collision>
   </link>
