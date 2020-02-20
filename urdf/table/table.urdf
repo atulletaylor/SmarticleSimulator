@@ -10,7 +10,7 @@
        <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
     </inertial>
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0.6"/>
+      <origin rpy="0 0 0" xyz="0 0 0.55"/>
       <geometry>
 				<mesh filename="tabletop.obj" scale="2 2 0.1"/>
       </geometry>
@@ -19,36 +19,36 @@
       </material>
     </visual>
     <collision>
-      <origin rpy="0 0 0" xyz="0 0 0.6"/>
+      <origin rpy="0 0 0" xyz="0 0 0.3"/>
       <geometry>
-	 	<box size="1.5 1 0.05"/>
+	 	<box size="2 2 0.6"/>
       </geometry>
     </collision>
 	<visual>
       <origin rpy="0 0 0" xyz="-0.9 -0.9 0.29"/>
       <geometry>
-	    <mesh filename="table.obj" scale="0.1 0.1 0.58"/>
+	    <mesh filename="tabletop.obj" scale="0.1 0.1 0.58"/>
       </geometry>
 	  <material name="framemat0"/>
     </visual>
     <visual>
       <origin rpy="0 0 0" xyz="-0.9 0.9 0.29"/>
       <geometry>
-        <mesh filename="table.obj" scale="0.1 0.1 0.58"/>
+        <mesh filename="tabletop.obj" scale="0.1 0.1 0.58"/>
       </geometry>
 	  <material name="framemat0"/>
 	  </visual>
     <visual>
       <origin rpy="0 0 0" xyz="0.9 -0.9 0.29"/>
       <geometry>
-        <mesh filename="table.obj" scale="0.1 0.1 0.58"/>
+        <mesh filename="tabletop.obj" scale="0.1 0.1 0.58"/>
       </geometry>
 	  <material name="framemat0"/>
 	  </visual>
     <visual>
       <origin rpy="0 0 0" xyz="0.9 0.9 0.29"/>
       <geometry>
-        <mesh filename="table.obj" scale="0.1 0.1 0.58"/>
+        <mesh filename="tabletop.obj" scale="0.1 0.1 0.58"/>
       </geometry>
     </visual>
   </link>
