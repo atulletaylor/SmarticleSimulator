@@ -28,7 +28,7 @@ class Flashlight(object):
     def draw_rays(self):
         ray_to = np.zeros([self.ray_count,3])
         ray_ids = np.zeros(self.ray_count)
-        ray_angles = np.mod(self.pitch+self.rays,2*np.pi)
+        ray_angles = np.mod(self.yaw+self.rays,2*np.pi)
         for ii,th in enumerate(ray_angles):
             ray_to[ii] = self.x+ np.array([self.ray_len*np.cos(th),\
                                 self.ray_len*np.sin(th),0])

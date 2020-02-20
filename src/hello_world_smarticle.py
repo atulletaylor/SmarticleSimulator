@@ -11,16 +11,16 @@ import numpy as np
 #URDF paths
 urdf_path = '../urdf/smarticle.urdf'
 ring_path = '../urdf/ring.urdf'
-
+z = 0.6
 def time_to_steps(time_s):
     return int(time_s*240)
 
-def load_smarticles(n,urdf_path, max_vel, dx,th,gait,dt):
+def load_smarticles(n,urdf_path, max_vel, dx,th,gait,dt,z):
     smarticles = []
     offset = -dx*(n//2)
     for ii in range(n):
         x = offset+ii*dx
-        smarticles.append(ss(urdf_path, maxvel, basePosition = [0,x,0],\
+        smarticles.append(ss(urdf_path, maxvel, basePosition = [0,x,z],\
                              baseOrientation = [0,0,th]))
         smarticles[-1].load_gait(np.array(gait),dt)
 
@@ -43,23 +43,24 @@ def ray_check(s,fl):
 
 
 
-fl = Flashlight([0,1,0.025], 3*np.pi/2)
+fl = Flashlight([0,1,z+0.025], 3*np.pi/2)
 
 physicsClient = p.connect(p.GUI)#or p.DIRECT for non-graphical version
 p.setAdditionalSearchPath(pybullet_data.getDataPath()) #optionally
 p.setGravity(0,0,-10)
 planeId = p.loadURDF("plane.urdf")
+tableId = p.loadURDF("../urdf/table/table.urdf")
 dt = time_to_steps(0.45)
-r = p.loadURDF(ring_path, basePosition = [0,0,0])
+r = p.loadURDF(ring_path, basePosition = [0,0,z])
 # cid = p.createConstraint(r,-1,0,-1,p.JOINT_PRISMATIC,[0,0,0],[0,0,0],[0,0,0])
-n = 4
-maxvel = 7.
+n = 5
+maxvel = 6.9
 dx = 0.032
 th = np.pi/2
 R = [-1.7,1.7,1.7,-1.7]
 L = [1.7,1.7,-1.7,-1.7]
 
-smarticles = load_smarticles(n,urdf_path, maxvel, dx,th,[L,R],dt)
+smarticles = load_smarticles(n,urdf_path, maxvel, dx,th,[L,R],dt,z)
 
 for i in range (480):
     p.stepSimulation()
