@@ -35,7 +35,7 @@ def ray_check(s,fl):
         smart.set_plank(0)
         smart.update_position()
     for ray in results:
-        if ray[0]>1:
+        if ray[0]>=smart_ids[0] and ray[1]==-1:
             index = smart_ids.index(ray[0])
             if s[index].light_plank(ray[3]):
                 p.addUserDebugLine(fl.x, ray[3], fl.ray_hit_color)
