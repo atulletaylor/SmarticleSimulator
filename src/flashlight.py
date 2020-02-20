@@ -9,7 +9,7 @@ class Flashlight(object):
     def __init__(self,basePosition, yaw=0, beam_width=np.pi/12,\
                 ray_count=100, ray_length=1.2):
         self.x = np.array(basePosition).astype(np.double)
-        self.yaw = np.mod(pitch,2*np.pi)
+        self.yaw = np.mod(yaw,2*np.pi)
         self.beam_width = beam_width
         self.ray_len = ray_length
         self.ray_count = ray_count
