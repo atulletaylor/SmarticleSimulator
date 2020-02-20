@@ -8,15 +8,16 @@ class SimulationSmarticle(object):
     MAX_VEL_RANGE = 0.2
     MAX_ANGLE_OFFSET = 0.2
     EPS = 5e-3
-    PR_LOC = 1e-3*np.array([0,15,10])
+    PR_LOC = 1e-3*np.array([[16,11.5,10],[-16,16,10]])
 
     def __init__(self,urdf_path, max_vel,\
                  basePosition=None, baseOrientation= None, max_r=30e-3):
 
 
         self.x = np.zeros(3)
-        self.pr_loc_global = np.zeros(3)
+        self.pr_loc_global = np.zeros([2,3])
         self.hit = 0
+        self.plank = 0
 
         # load basePosition and baseOrientation
         if basePosition is None:
@@ -73,10 +74,10 @@ class SimulationSmarticle(object):
         if state==1:
             self.plank = 1
             self.move_arms(0,0)
-            p.changeVisualShape(self.id,-1,rgbaColor=[0,1,0,1])
+            # p.changeVisualShape(self.id,-1,rgbaColor=[0,1,0,1])
         else:
             self.plank = 0
-            p.changeVisualShape(self.id,-1,rgbaColor=[0.3,0.3,0.3,1])
+            # p.changeVisualShape(self.id,-1,rgbaColor=[0.3,0.3,0.3,1])
 
     def motor_step(self):
         if self.plank !=1:
@@ -92,16 +93,19 @@ class SimulationSmarticle(object):
         pos, orient = p.getBasePositionAndOrientation(self.id)
         self.x[0:2]=np.array(pos[0:2])
         self.x[2]=np.mod(p.getEulerFromQuaternion(orient)[2],2*np.pi)
-        self.pr_loc_global,_ = p.multiplyTransforms(pos, orient,\
-                                                     self.PR_LOC, [0,0,0,1])
+        for ii in range(len(self.PR_LOC)):
+            self.pr_loc_global[ii],_ = p.multiplyTransforms(pos, orient,\
+                                                     self.PR_LOC[ii], [0,0,0,1])
 
     def light_plank(self,ray):
+        ray = np.array(ray)
         if self.plank ==1:
             return False
         else:
-            err = np.linalg.norm(self.pr_loc_global[1]-ray[1])
+            err1 = np.linalg.norm(self.pr_loc_global[0][:2]-ray[:2])
+            err2 = np.linalg.norm(self.pr_loc_global[1][:2]-ray[:2])
             # print("ID:{} pr:{}, ray:{}".format(self.id,\
                                                 # self.pr_loc_global[1],ray[1]))
-            if np.abs(err) < self.EPS:
+            if err1 < self.EPS or err2 < self.EPS:
                 self.set_plank(1)
                 return True
