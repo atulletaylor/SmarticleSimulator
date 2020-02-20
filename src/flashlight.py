@@ -6,10 +6,10 @@ from pdb import set_trace as bp
 class Flashlight(object):
     """docstring for Flashlight."""
 
-    def __init__(self,basePosition, pitch=0, beam_width=np.pi/12,\
+    def __init__(self,basePosition, yaw=0, beam_width=np.pi/12,\
                 ray_count=100, ray_length=1.2):
         self.x = np.array(basePosition).astype(np.double)
-        self.pitch = np.mod(pitch,2*np.pi)
+        self.yaw = np.mod(pitch,2*np.pi)
         self.beam_width = beam_width
         self.ray_len = ray_length
         self.ray_count = ray_count
@@ -23,7 +23,7 @@ class Flashlight(object):
     def update_position(self,x, pitch, yaw):
         self.x = np.array(x)
         self.ray_from = self.x*np.ones([self.ray_count,1])
-        self.pitch = np.mod(pitch,2*np.pi)
+        self.yaw = np.mod(pitch,2*np.pi)
 
     def draw_rays(self):
         ray_to = np.zeros([self.ray_count,3])
