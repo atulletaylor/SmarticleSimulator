@@ -52,13 +52,14 @@ planeId = p.loadURDF("plane.urdf")
 dt = time_to_steps(0.45)
 r = p.loadURDF(ring_path, basePosition = [0,0,0])
 # cid = p.createConstraint(r,-1,0,-1,p.JOINT_PRISMATIC,[0,0,0],[0,0,0],[0,0,0])
-maxvel = 6.
+n = 4
+maxvel = 7.
 dx = 0.032
 th = np.pi/2
 R = [-1.7,1.7,1.7,-1.7]
 L = [1.7,1.7,-1.7,-1.7]
 
-s = load_smarticles(5,urdf_path, maxvel, dx,th,[L,R],dt)
+smarticles = load_smarticles(n,urdf_path, maxvel, dx,th,[L,R],dt)
 
 for i in range (480):
     p.stepSimulation()
@@ -67,17 +68,9 @@ t_steps = time_to_steps(1200)
 for i in range (t_steps):
     p.stepSimulation()
     time.sleep(1./240.)
-    if i%500==0:
-        ray_check(s,fl)
-    if i%dt==s[0].gait_phase:
-        s[0].motor_step()
-        s[0].update_position()
-    if i%dt==s[1].gait_phase:
-        s[1].motor_step()
-    if i%dt==s[2].gait_phase:
-        s[2].motor_step()
-    if i%dt==s[3].gait_phase:
-        s[3].motor_step()
-    if i%dt==s[4].gait_phase:
-        s[4].motor_step()
+    if i%40==0:
+        ray_check(smarticles,fl)
+    for s in smarticles:
+        if i%dt==s.gait_phase:
+            s.motor_step()
 p.disconnect()
