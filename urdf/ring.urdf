@@ -4,6 +4,10 @@
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot name="part1">
   <link name="ring">
+  <contact>
+      <lateral_friction value="0.25"/>
+      <angular_friction value="0.25"/>
+  </contact>
     <inertial>
       <origin
         xyz="0 0.005"
