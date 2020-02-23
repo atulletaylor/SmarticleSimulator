@@ -4,6 +4,10 @@
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot name="part1">
   <link name="ring">
+  <contact>
+      <lateral_friction value="0.1"/>
+      <angular_friction value="0.2"/>
+  </contact>
     <inertial>
       <origin
         xyz="0 0.005"
@@ -23,7 +27,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/20mm_ring.STL" />
+          filename="../meshes/20mm_ring.STL" scale="1 1 1" />
       </geometry>
       <material
         name="">
@@ -37,7 +41,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/20mm_ring.obj" />
+          filename="../meshes/20mm_ring.obj" scale="1 1 1" />
       </geometry>
     </collision>
   </link>

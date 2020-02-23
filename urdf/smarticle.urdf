@@ -6,6 +6,10 @@
   name="simulation_assembly">
   <link
     name="base_link">
+    <contact>
+        <lateral_friction value="0.15"/>
+        <angular_friction value="0.6"/>
+    </contact>
     <inertial>
       <origin
         xyz="0 0 0.01515"
@@ -31,7 +35,7 @@
       <material
         name="gray">
         <color
-          rgba="0.29804 0.29804 0.29804 1" />
+          rgba="0.4 0.4 0.4 1" />
       </material>
     </visual>
     <collision>
@@ -46,6 +50,9 @@
   </link>
   <link
     name="arm_left">
+    <contact>
+        <lateral_friction value="0"/>
+    </contact>
     <inertial>
       <origin
         xyz="0.029809 -0.018645 5.48789273350911E-19"
@@ -66,12 +73,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/ray_arm.STL" />
+          filename="../meshes/arm.STL" />
       </geometry>
       <material
         name="blue">
         <color
-          rgba="0 0 1 1" />
+          rgba="0.36 0.54 0.66 1" />
       </material>
     </visual>
     <collision>
@@ -80,7 +87,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/ray_arm.STL" />
+          filename="../meshes/arm.STL" />
       </geometry>
     </collision>
   </link>
@@ -99,11 +106,14 @@
     <limit
       lower="-1.8"
       upper="1.8"
-      effort="0.03"
+      effort="0.01"
       velocity="6" />
   </joint>
   <link
     name="arm_right">
+    <contact>
+        <lateral_friction value="0"/>
+    </contact>
     <inertial>
       <origin
         xyz="0.029809 -0.018645 5.48789273350911E-19"
@@ -124,12 +134,12 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/ray_arm.STL" />
+          filename="../meshes/arm.STL" />
       </geometry>
       <material
         name="red">
         <color
-          rgba="1 0 0 1" />
+          rgba="0.83 0.13 0.18 1" />
       </material>
     </visual>
     <collision>
@@ -138,7 +148,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/ray_arm.STL" />
+          filename="../meshes/arm.STL" />
       </geometry>
     </collision>
   </link>
@@ -157,7 +167,7 @@
     <limit
       lower="-1.8"
       upper="1.8"
-      effort="0.03"
+      effort="0.01"
       velocity="6" />
   </joint>
 </robot>
