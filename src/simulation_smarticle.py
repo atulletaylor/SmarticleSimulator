@@ -5,8 +5,10 @@ from pdb import set_trace as bp
 import pybullet as p
 
 class SimulationSmarticle(object):
+    MAX_FORCE = 0.04
     MAX_VEL_RANGE = 0.2
     MAX_ANGLE_OFFSET = 0.2
+    MAX_HIT_ANGLE = 1.1
     EPS = 5e-3
     PR_LOC = 1e-3*np.array([[16,11.5,10],[-16,16,10]])
 
@@ -60,10 +62,12 @@ class SimulationSmarticle(object):
     def move_arms(self,posL, posR):
         p.setJointMotorControl2(self.id,0, self.control,\
             targetPosition=posL+self.arm_offset[0],\
-            maxVelocity = int(self.maxvel[0]))
+            maxVelocity = self.maxvel[0],\
+            force = self.MAX_FORCE)
         p.setJointMotorControl2(self.id,1, self.control,\
             targetPosition=posR+self.arm_offset[1],\
-            maxVelocity = int(self.maxvel[0]))
+            maxVelocity = self.maxvel[0],\
+            force = self.MAX_FORCE)
 
     def move_random_corners(self):
         posL = np.random.choice([-1.7,1.7])
@@ -86,7 +90,8 @@ class SimulationSmarticle(object):
         else:
             posL = self.arm_offset[0]
             posR = self.arm_offset[1]
-        self.move_arms(posL, posR)
+        if self.plank==0:
+            self.move_arms(posL, posR)
         self.gait_index = (self.gait_index+1)%self.n
 
     def update_position(self):
@@ -97,15 +102,19 @@ class SimulationSmarticle(object):
             self.pr_loc_global[ii],_ = p.multiplyTransforms(pos, orient,\
                                                      self.PR_LOC[ii], [0,0,0,1])
 
-    def light_plank(self,ray):
+    def light_plank(self,ray, light_yaw):
         ray = np.array(ray)
         if self.plank ==1:
             return False
         else:
             err1 = np.linalg.norm(self.pr_loc_global[0][:2]-ray[:2])
             err2 = np.linalg.norm(self.pr_loc_global[1][:2]-ray[:2])
+            angle_diff = np.mod(light_yaw-self.x[2],np.pi/2)
+            # bp()
             # print("ID:{} pr:{}, ray:{}".format(self.id,\
                                                 # self.pr_loc_global[1],ray[1]))
-            if err1 < self.EPS or err2 < self.EPS:
+            if (err1 < self.EPS or err2 < self.EPS)\
+                and angle_diff< self.MAX_HIT_ANGLE:
+
                 self.set_plank(1)
                 return True
