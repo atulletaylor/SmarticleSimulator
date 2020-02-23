@@ -8,7 +8,7 @@ class SimulationSmarticle(object):
     MAX_FORCE = 0.04
     MAX_VEL_RANGE = 0.2
     MAX_ANGLE_OFFSET = 0.2
-    MAX_HIT_ANGLE = 1.1
+    MAX_HIT_ANGLE = 0.9
     EPS = 5e-3
     PR_LOC = 1e-3*np.array([[16,11.5,10],[-16,16,10]])
 

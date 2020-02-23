@@ -5,8 +5,8 @@
 <robot name="part1">
   <link name="ring">
   <contact>
-      <lateral_friction value="0.1"/>
-      <angular_friction value="0.2"/>
+      <lateral_friction value="0.15"/>
+      <angular_friction value="0.1"/>
   </contact>
     <inertial>
       <origin
