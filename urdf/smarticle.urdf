@@ -7,8 +7,8 @@
   <link
     name="base_link">
     <contact>
-        <lateral_friction value="0.25"/>
-        <angular_friction value="0.25"/>
+        <lateral_friction value="0.15"/>
+        <angular_friction value="0.6"/>
     </contact>
     <inertial>
       <origin
@@ -106,7 +106,7 @@
     <limit
       lower="-1.8"
       upper="1.8"
-      effort="0.025"
+      effort="0.01"
       velocity="6" />
   </joint>
   <link
@@ -167,7 +167,7 @@
     <limit
       lower="-1.8"
       upper="1.8"
-      effort="0.025"
+      effort="0.01"
       velocity="6" />
   </joint>
 </robot>
