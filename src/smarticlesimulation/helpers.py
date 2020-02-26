@@ -1,5 +1,4 @@
 import numpy as np
-import pybullet as p
 from smarticle import Smarticle
 
 def time_to_steps(time_s):
@@ -15,17 +14,3 @@ def load_smarticles(n,urdf_path, max_vel, dx,th,gait,dt,z):
                                     baseOrientation = [0,0,th]))
         smarticles[-1].load_gait(np.array(gait),dt)
     return smarticles
-
-
-def ray_check(smarticles,fl):
-    p.removeAllUserDebugItems()
-    results = fl.draw_rays()
-    smart_ids = [x.id for x in smarticles]
-    for smart in smarticles:
-        smart.update_position()
-        smart.set_plank(0)
-    for ray in results:
-        if ray[0]>=smart_ids[0] and ray[1]==-1:
-            index = smart_ids.index(ray[0])
-            if s[index].light_plank(ray[3],fl.yaw):
-                p.addUserDebugLine(fl.x, ray[3], fl.ray_hit_color)
