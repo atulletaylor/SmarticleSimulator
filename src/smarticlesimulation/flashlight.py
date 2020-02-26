@@ -32,4 +32,17 @@ class Flashlight(object):
                                 self.ray_len*np.sin(th),0])
             # p.addUserDebugLine(self.x, ray_to[ii], self.ray_miss_color)
 
+    def ray_check(self, smarticles):
+        p.removeAllUserDebugItems()
+        results = self.draw_rays()
+        smart_ids = [x.id for x in smarticles]
+        for smart in smarticles:
+            smart.update_position()
+            smart.set_plank(0)
+        for ray in results:
+            if ray[0]>=smart_ids[0] and ray[1]==-1:
+                index = smart_ids.index(ray[0])
+                if s[index].light_plank(ray[3],self.yaw):
+                    p.addUserDebugLine(self.x, ray[3], self.ray_hit_color)
+
         return p.rayTestBatch(self.ray_from,ray_to)
