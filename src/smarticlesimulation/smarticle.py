@@ -1,10 +1,8 @@
 # smarticle_simulation_object
-
 import numpy as np
-from pdb import set_trace as bp
 import pybullet as p
 
-class SimulationSmarticle(object):
+class Smarticle(object):
     MAX_FORCE = 0.04
     MAX_VEL_RANGE = 0.2
     MAX_ANGLE_OFFSET = 0.2
