@@ -1,8 +1,6 @@
 import numpy as np
 import pybullet as p
 
-from pdb import set_trace as bp
-
 class Flashlight(object):
     """docstring for Flashlight."""
 
