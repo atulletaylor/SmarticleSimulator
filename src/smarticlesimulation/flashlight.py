@@ -5,7 +5,8 @@ class Flashlight(object):
     """docstring for Flashlight."""
 
     def __init__(self,urdf_path, basePosition, yaw=0, beam_width=np.pi/12,\
-                ray_count=100, ray_length=1.2):
+                ray_count=100, ray_length=1.2, debug=0):
+        self.debug = debug
         self.x = np.array(basePosition).astype(np.double)
         self.yaw = np.mod(yaw,2*np.pi)
         self.beam_width = beam_width
@@ -32,7 +33,10 @@ class Flashlight(object):
         for ii,th in enumerate(ray_angles):
             ray_to[ii] = self.x+ np.array([self.ray_len*np.cos(th),\
                                 self.ray_len*np.sin(th),0])
-            # p.addUserDebugLine(self.x, ray_to[ii], self.ray_miss_color)
+
+            if self.debug:
+                p.addUserDebugLine(self.x, ray_to[ii], self.ray_miss_color)
+        return p.rayTestBatch(self.ray_from, ray_to)
 
     def ray_check(self, smarticles):
         p.removeAllUserDebugItems()
@@ -44,7 +48,5 @@ class Flashlight(object):
         for ray in results:
             if ray[0]>=smart_ids[0] and ray[1]==-1:
                 index = smart_ids.index(ray[0])
-                if s[index].light_plank(ray[3],self.yaw):
-                    p.addUserDebugLine(self.x, ray[3], self.ray_hit_color)
-
-        return p.rayTestBatch(self.ray_from,ray_to)
+                if smarticles[index].light_plank(ray[3],self.yaw):
+                        p.addUserDebugLine(self.x, ray[3], self.ray_hit_color)
