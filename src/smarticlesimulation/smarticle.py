@@ -37,7 +37,7 @@ class Smarticle(object):
 
         # loadURDF
         self.initial_pos = basePosition
-        self.initial_orn - baseOrientation
+        self.initial_orn = baseOrientation
         self.id = p.loadURDF(urdf_path, basePosition = basePosition,\
                                   baseOrientation = baseOrientation)
 
@@ -52,11 +52,11 @@ class Smarticle(object):
         self.update_position()
 
     def reset_pose(self, pos=None, orn=None, joint_state=None):
-        if pos = None:
+        if pos == None:
             pos = self.initial_pos
-        if orn = None:
-            orn - self.initial_orn
-        if joint_state = None:
+        if orn == None:
+            orn = self.initial_orn
+        if joint_state == None:
             joint_state = [0,0]
         p.resetBasePositionAndOrientation(self.id,pos,orn)
         p.resetJointState(self.id,0,joint_state[0])
