@@ -11,7 +11,7 @@ class Smarticle(object):
     EPS = 5e-3
     PR_LOC = 1e-3*np.array([[16,11.5,10],[-16,16,10]])
 
-    def __init__(self,urdf_path, max_vel,\
+    def __init__(self,urdf_path,\
                  basePosition=None, baseOrientation= None, max_r=30e-3):
 
 
