@@ -7,7 +7,10 @@ import numpy as np
 #URDF paths
 smarticle_path = '../urdf/smarticle.urdf'
 ring_path = '../urdf/ring.urdf'
+flashlight_path = '../urdf/flashlight.urdf'
 
+
+z = 0.6
 
 physicsClient = p.connect(p.GUI)#or p.DIRECT for non-graphical version
 p.setAdditionalSearchPath(pybullet_data.getDataPath()) #optionally
@@ -24,7 +27,6 @@ th = np.pi/2
 R = [-1.7,1.7,1.7,-1.7]
 L = [1.7,1.7,-1.7,-1.7]
 dt = sim.time_to_steps(0.45)
-z = 0.6
 
 smarticles = sim.load_smarticles(n,smarticle_path, maxvel, dx,th,[L,R],dt,z)
 r = p.loadURDF(ring_path, basePosition = [0,0,z])
@@ -32,7 +34,7 @@ r = p.loadURDF(ring_path, basePosition = [0,0,z])
 for i in range (2*480):
     p.stepSimulation()
 
-t_steps = time_to_steps(30)
+t_steps = sim.time_to_steps(30)
 for i in range (t_steps):
     time.sleep(1/240.)
     p.stepSimulation()
