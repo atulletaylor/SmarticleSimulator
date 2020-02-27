@@ -4,6 +4,7 @@ import pybullet as p
 
 class Smarticle(object):
     MAX_FORCE = 0.04
+    MAX_VEL = 6.9
     MAX_VEL_RANGE = 0.2
     MAX_ANGLE_OFFSET = 0.2
     MAX_HIT_ANGLE = 0.9
@@ -39,7 +40,7 @@ class Smarticle(object):
                                   baseOrientation = baseOrientation)
 
       # add randomness to smarticle params
-        self.maxvel = max_vel + self.MAX_VEL_RANGE*(2.*np.random.rand(2)-1.)
+        self.maxvel = self.MAX_VEL + self.MAX_VEL_RANGE*(2.*np.random.rand(2)-1.)
         self.control = p.POSITION_CONTROL
         self.arm_offset = self.MAX_ANGLE_OFFSET*(2.*np.random.rand(2)-1.)
 
