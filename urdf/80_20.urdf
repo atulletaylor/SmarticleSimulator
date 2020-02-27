@@ -1,5 +1,5 @@
 <?xml version="0.0" ?>
-<robot name="table.urdf">
+<robot name="80_20.urdf">
   <link name="baseLink">
     <contact>
       <lateral_friction value="1.0"/>
