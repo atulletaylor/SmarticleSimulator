@@ -36,6 +36,8 @@ class Smarticle(object):
         baseOrientation = p.getQuaternionFromEuler(baseOrientation)
 
         # loadURDF
+        self.initial_pos = basePosition
+        self.initial_orn - baseOrientation
         self.id = p.loadURDF(urdf_path, basePosition = basePosition,\
                                   baseOrientation = baseOrientation)
 
@@ -48,6 +50,17 @@ class Smarticle(object):
         for joint in range(2):
             p.changeDynamics(self.id,joint,lateralFriction = 0)
         self.update_position()
+
+    def reset_pose(self, pos=None, orn=None, joint_state=None):
+        if pos = None:
+            pos = self.initial_pos
+        if orn = None:
+            orn - self.initial_orn
+        if joint_state = None:
+            joint_state = [0,0]
+        p.resetBasePositionAndOrientation(self.id,pos,orn)
+        p.resetJointState(self.id,0,joint_state[0])
+        p.resetJointState(self.id,0,joint_state[1])
 
     def load_gait(self, gait, gait_dt):
         '''DOC'''
