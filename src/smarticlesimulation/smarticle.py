@@ -7,18 +7,19 @@ class Smarticle(object):
     MAX_VEL = 6.9
     MAX_VEL_RANGE = 0.2
     MAX_ANGLE_OFFSET = 0.2
-    MAX_HIT_ANGLE = 0.9
+    MAX_HIT_ANGLE = 1.1
     EPS = 5e-3
     PR_LOC = 1e-3*np.array([[16,11.5,10],[-16,16,10]])
 
     def __init__(self,urdf_path,\
-                 basePosition=None, baseOrientation= None, max_r=30e-3):
+                 basePosition=None, baseOrientation= None, max_r=30e-3, debug = 0):
 
 
         self.x = np.zeros(3)
         self.pr_loc_global = np.zeros([2,3])
         self.hit = 0
         self.plank = 0
+        self.debug = debug
 
         # load basePosition and baseOrientation
         if basePosition is None:
@@ -90,10 +91,12 @@ class Smarticle(object):
         if state==1:
             self.plank = 1
             self.move_arms(0,0)
-            # p.changeVisualShape(self.id,-1,rgbaColor=[0,1,0,1])
+            if self.debug:
+                p.changeVisualShape(self.id,-1,rgbaColor=[0,1,0,1])
         else:
             self.plank = 0
-            # p.changeVisualShape(self.id,-1,rgbaColor=[0.3,0.3,0.3,1])
+            if self.debug:
+                p.changeVisualShape(self.id,-1,rgbaColor=[0.3,0.3,0.3,1])
 
     def motor_step(self):
         if self.plank !=1:
@@ -121,12 +124,11 @@ class Smarticle(object):
         else:
             err1 = np.linalg.norm(self.pr_loc_global[0][:2]-ray[:2])
             err2 = np.linalg.norm(self.pr_loc_global[1][:2]-ray[:2])
-            angle_diff = np.mod(light_yaw-self.x[2],np.pi/2)
-            # bp()
-            # print("ID:{} pr:{}, ray:{}".format(self.id,\
-                                                # self.pr_loc_global[1],ray[1]))
             if (err1 < self.EPS or err2 < self.EPS)\
                 and angle_diff< self.MAX_HIT_ANGLE:
 
                 self.set_plank(1)
                 return True
+            angle_diff = np.abs(np.mod(light_yaw-self.x[2]+np.pi,2*np.pi)-np.pi)
+            angle_diff = np.pi-angle_diff if (angle_diff>np.pi/2) else angle_diff
+
