@@ -4,8 +4,8 @@ import pybullet as p
 class Flashlight(object):
     """docstring for Flashlight."""
 
-    def __init__(self,urdf_path, basePosition, yaw=0, beam_width=np.pi/12,\
-                ray_count=100, ray_length=1.2, debug=0):
+    def __init__(self,urdf_path, basePosition, yaw=0, beam_width=np.pi/6.5,\
+                ray_count=75, ray_length=1.2, debug=0):
         self.debug = debug
         self.x = np.array(basePosition).astype(np.double)
         self.yaw = np.mod(yaw,2*np.pi)
@@ -19,12 +19,15 @@ class Flashlight(object):
         self.ray_hit_color = [1,0.49,0]
         self.ray_miss_color = [1,0.75,0]
 
-        self.fl_id= p.loadURDF(urdf_path,basePosition=basePosition)
+        self.id= p.loadURDF(urdf_path,basePosition=basePosition,\
+                                baseOrientation=p.getQuaternionFromEuler([0,0,self.yaw]))
 
-    def update_position(self,x, pitch, yaw):
+    def update_position(self,x, yaw=None):
         self.x = np.array(x)
         self.ray_from = self.x*np.ones([self.ray_count,1])
-        self.yaw = np.mod(pitch,2*np.pi)
+        if yaw is not None:
+            self.yaw = np.mod(yaw,2*np.pi)
+        p.resetBasePositionAndOrientation(self.id,x,p.getQuaternionFromEuler([0,0,self.yaw]))
 
     def draw_rays(self):
         ray_to = np.zeros([self.ray_count,3])

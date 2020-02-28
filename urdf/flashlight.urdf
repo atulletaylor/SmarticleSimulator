@@ -13,7 +13,7 @@
        <mesh filename="../meshes/flashlight.obj" scale="0.003 0.005 0.005" />
     </geometry>
 	  <material name="orange">
-      <color rgba="1 0.45 0.21 1" />
+      <color rgba="1 0.49 0 1" />
     </material>
   </visual>
 </link>

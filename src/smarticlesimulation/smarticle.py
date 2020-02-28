@@ -7,7 +7,7 @@ class Smarticle(object):
     MAX_VEL = 6.9
     MAX_VEL_RANGE = 0.2
     MAX_ANGLE_OFFSET = 0.2
-    MAX_HIT_ANGLE = 1.1
+    MAX_HIT_ANGLE = 1.0
     EPS = 5e-3
     PR_LOC = 1e-3*np.array([[16,11.5,10],[-16,16,10]])
 
@@ -124,11 +124,15 @@ class Smarticle(object):
         else:
             err1 = np.linalg.norm(self.pr_loc_global[0][:2]-ray[:2])
             err2 = np.linalg.norm(self.pr_loc_global[1][:2]-ray[:2])
-            if (err1 < self.EPS or err2 < self.EPS)\
-                and angle_diff< self.MAX_HIT_ANGLE:
-
-                self.set_plank(1)
-                return True
             angle_diff = np.abs(np.mod(light_yaw-self.x[2]+np.pi,2*np.pi)-np.pi)
             angle_diff = np.pi-angle_diff if (angle_diff>np.pi/2) else angle_diff
 
+            if (err1 < self.EPS or err2 < self.EPS):
+                # p.changeVisualShape(self.id,-1,rgbaColor=[0,0,1,1])
+                # print("angle: {}".format(angle_diff))
+                # bp()
+                # p.changeVisualShape(self.id,-1,rgbaColor=[0.3,0.3,0.3,1])
+                if angle_diff< self.MAX_HIT_ANGLE:
+
+                    self.set_plank(1)
+                    return True
