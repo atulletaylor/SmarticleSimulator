@@ -61,7 +61,7 @@ class Smarticle(object):
             joint_state = [0,0]
         p.resetBasePositionAndOrientation(self.id,pos,orn)
         p.resetJointState(self.id,0,joint_state[0])
-        p.resetJointState(self.id,0,joint_state[1])
+        p.resetJointState(self.id,1,joint_state[1])
         self.update_position()
 
     def load_gait(self, gait, gait_dt):
