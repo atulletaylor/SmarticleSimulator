@@ -7,6 +7,7 @@ class Flashlight(object):
     def __init__(self,urdf_path, basePosition, yaw=0, beam_width=np.pi/6.5,\
                 ray_count=75, ray_length=1.2, debug=0):
         self.debug = debug
+        self.polar = np.zeros(2)
         self.x = np.array(basePosition).astype(np.double)
         self.yaw = np.mod(yaw,2*np.pi)
         self.beam_width = beam_width
@@ -21,13 +22,30 @@ class Flashlight(object):
 
         self.id= p.loadURDF(urdf_path,basePosition=basePosition,\
                                 baseOrientation=p.getQuaternionFromEuler([0,0,self.yaw]))
+    @staticmethod
+    def polar2x(self, r, theta):
+        z = r * exp(1j*theta)
+        return np.array([np.real(z),np.imag(z)])
 
-    def update_position(self,x, yaw=None):
+    def set_position(self,x, yaw=None):
         self.x = np.array(x)
         self.ray_from = self.x*np.ones([self.ray_count,1])
         if yaw is not None:
             self.yaw = np.mod(yaw,2*np.pi)
         p.resetBasePositionAndOrientation(self.id,x,p.getQuaternionFromEuler([0,0,self.yaw]))
+
+
+
+    def set_polar_position(self,origin, r=None,th=None, z = None):
+        if r is not None:
+            self.polar[0] = r
+        if th is not None:
+            self.polar[1] = th
+        if z is not None:
+            self.x[2] = z
+        xy = self.polar2x(self.polar[0],self.polar[1])+origin[:2]
+        self.update_position([xy[0],xy[1],self.x[2]])
+
 
     def draw_rays(self):
         ray_to = np.zeros([self.ray_count,3])
