@@ -1,6 +1,8 @@
 import numpy as np
 import pybullet as p
 
+from pdb import set_trace as bp
+
 class Flashlight(object):
     """docstring for Flashlight."""
 
@@ -23,8 +25,8 @@ class Flashlight(object):
         self.id= p.loadURDF(urdf_path,basePosition=basePosition,\
                                 baseOrientation=p.getQuaternionFromEuler([0,0,self.yaw]))
     @staticmethod
-    def polar2x(self, r, theta):
-        z = r * exp(1j*theta)
+    def polar2x(r, theta):
+        z = r * np.exp(1j*theta)
         return np.array([np.real(z),np.imag(z)])
 
     def set_position(self,x, yaw=None):
@@ -44,7 +46,8 @@ class Flashlight(object):
         if z is not None:
             self.x[2] = z
         xy = self.polar2x(self.polar[0],self.polar[1])+origin[:2]
-        self.update_position([xy[0],xy[1],self.x[2]])
+        yaw = np.arctan2(xy[1]-origin[1],xy[0]-origin[0])
+        self.set_position([xy[0],xy[1],self.x[2]],yaw=yaw+np.pi)
 
 
     def draw_rays(self):
