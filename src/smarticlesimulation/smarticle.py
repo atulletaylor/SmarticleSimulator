@@ -3,7 +3,7 @@ import numpy as np
 import pybullet as p
 
 class Smarticle(object):
-    MAX_FORCE = 0.04
+    MAX_FORCE = 0.05
     MAX_VEL = 6.9
     MAX_VEL_RANGE = 0.2
     MAX_ANGLE_OFFSET = 0.2
