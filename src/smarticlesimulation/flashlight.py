@@ -6,7 +6,7 @@ from pdb import set_trace as bp
 class Flashlight(object):
     """docstring for Flashlight."""
 
-    def __init__(self,urdf_path, basePosition, yaw=0, beam_width=np.pi/9,\
+    def __init__(self,urdf_path, basePosition, yaw=0, beam_width=np.pi/12,\
                 ray_count=75, ray_length=1.2, debug=0):
         self.debug = debug
         self.polar = np.zeros(2)
