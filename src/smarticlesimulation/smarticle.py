@@ -67,7 +67,7 @@ class Smarticle(object):
     def load_gait(self, gait, gait_dt):
         '''DOC'''
         self.n = gait.shape[1]
-        self.gait_index = np.random.randint(0,self.n)
+        self.gait_index = 0
         self.gait_period = gait_dt
         self.gait_phase = int(self.gait_period*np.random.rand())
         self.gaitL = gait[0]
