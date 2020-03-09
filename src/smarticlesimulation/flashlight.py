@@ -7,7 +7,7 @@ class Flashlight(object):
     """docstring for Flashlight."""
 
     def __init__(self,urdf_path, basePosition, yaw=0, beam_width=np.pi/12,\
-                ray_count=75, ray_length=1.2, debug=0):
+                ray_count=100, ray_length=1.2, debug=0):
         self.debug = debug
         self.polar = np.zeros(2)
         self.x = np.array(basePosition).astype(np.double)
