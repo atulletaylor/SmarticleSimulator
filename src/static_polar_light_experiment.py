@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 
 mpl.style.use('seaborn')
-GUI = True
+GUI = False
 
 #URDF paths
 urdf_dir = '../urdf/'
@@ -29,9 +29,11 @@ flashlight_path = urdf_dir+'flashlight.urdf'
 
 server = p.GUI if GUI else p.DIRECT
 physicsClient = p.connect(server)#or p.DIRECT for non-graphical version
-runs = 20
+runs = 10
+total_displacement = np.zeros(runs)
 z = 0.6
-fl = Flashlight(flashlight_path,[0,0.5,z+0.025], 3*np.pi/2)
+fl = Flashlight(flashlight_path,[0,1,z+0.025], 3*np.pi/2)
+fl.set_polar_position([0,0],r=1,th=np.pi/2)
 n = 5
 R = [-1.7,1.7,1.7,-1.7]
 L = [1.7,1.7,-1.7,-1.7]
@@ -78,16 +80,17 @@ for iter in range(runs):
         # time.sleep(1./240.)
         if i%40==0:
             pos,_ = p.getBasePositionAndOrientation(r)
-            if plot_ii %8==0:
+            if plot_ii %18==0: #plot every 3 s
                 displacement.append(pos[:2])
             plot_ii+=1
-            fl.set_position([pos[0],pos[1]+0.5,fl.x[2]])
+            fl.set_polar_position(pos[:2])
             fl.ray_check(smarticles)
         for s in smarticles:
             if i%dt==s.gait_phase:
                 s.motor_step()
     p.removeAllUserDebugItems()
     pos, _ = p.getBasePositionAndOrientation(r)
+    displacement.append(pos[:2])
     displacement = 1000*np.array(displacement)
     step = np.expand_dims(np.arange(0,len(displacement)),1)
     data_out = np.hstack([step,displacement])
@@ -98,12 +101,12 @@ for iter in range(runs):
     plt.ylabel("y(mm)")
     plt.title("Run {}".format(1+iter))
     plt.show(block = False)
+    plt.pause(0.01)
     path = filename.format(1+iter)
+    total_displacement[iter]=displacement[-1,1]
     np.savetxt(path,data_out,\
         header="step, ring_center (x), ring_center (y)",fmt="%d, %d, %d")
-    print('\n\ntime:{}, run:{}, displacement:{}'.format(time.time()-t0,iter,\
-                                sum(displacement[:,1])/len(displacement[:,1])))
-
-    path = filename.format(iter)
+    print('\n\ntime:{}, run:{}, displacement:{}'.format(time.time()-t0,iter,total_displacement[iter]))
 p.disconnect()
+print('Average Displacement: {}'.format(sum(total_displacement)/runs))
 print("Done!")
