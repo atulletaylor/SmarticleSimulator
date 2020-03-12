@@ -67,7 +67,7 @@ class Smarticle(object):
     def load_gait(self, gait, gait_dt):
         '''DOC'''
         self.n = gait.shape[1]
-        self.gait_index = 0
+        self.gait_index = np.random.randint(0,self.n)
         self.gait_period = gait_dt
         self.gait_phase = int(self.gait_period*np.random.rand())
         self.gaitL = gait[0]
@@ -128,12 +128,8 @@ class Smarticle(object):
             angle_diff = np.abs(np.mod(light_yaw-self.x[2]+np.pi,2*np.pi)-np.pi)
             angle_diff = np.pi-angle_diff if (angle_diff>np.pi/2) else angle_diff
 
-            if (err1 < self.EPS or err2 < self.EPS):
-                # p.changeVisualShape(self.id,-1,rgbaColor=[0,0,1,1])
-                # print("angle: {}".format(angle_diff))
-                # bp()
-                # p.changeVisualShape(self.id,-1,rgbaColor=[0.3,0.3,0.3,1])
-                if angle_diff< self.MAX_HIT_ANGLE:
+            if (err1 < self.EPS or err2 < self.EPS\
+                and angle_diff< self.MAX_HIT_ANGLE):
 
-                    self.set_plank(1)
-                    return True
+                self.set_plank(1)
+                return True
