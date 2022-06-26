@@ -51,7 +51,7 @@
   <link
     name="arm_left">
     <contact>
-        <lateral_friction value="0"/>
+        <lateral_friction value="0."/>
     </contact>
     <inertial>
       <origin

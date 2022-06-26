@@ -1,5 +1,6 @@
 import numpy as np
 import pybullet as p
+import copy
 
 from pdb import set_trace as bp
 
@@ -36,7 +37,14 @@ class Flashlight(object):
             self.yaw = np.mod(yaw,2*np.pi)
         p.resetBasePositionAndOrientation(self.id,x,p.getQuaternionFromEuler([0,0,self.yaw]))
 
-
+    def set_z_position(self,z, yaw=None):
+        new_z = copy.copy(self.x)
+        new_z[2] = z
+        self.x = np.array(new_z)
+        self.ray_from = self.x*np.ones([self.ray_count,1])
+        if yaw is not None:
+            self.yaw = np.mod(yaw,2*np.pi)
+        p.resetBasePositionAndOrientation(self.id,new_z,p.getQuaternionFromEuler([0,0,self.yaw]))
 
     def set_polar_position(self,origin, r=None,th=None, z = None):
         if r is not None:
@@ -62,6 +70,15 @@ class Flashlight(object):
                 p.addUserDebugLine(self.x, ray_to[ii], self.ray_miss_color)
         return p.rayTestBatch(self.ray_from, ray_to)
 
+    def clear_rays(self, smarticles):
+        p.removeAllUserDebugItems()
+        results = self.draw_rays()
+        for smart in smarticles:
+            smart.update_position()
+            smart.set_plank(0)
+
+
+
     def ray_check(self, smarticles):
         p.removeAllUserDebugItems()
         results = self.draw_rays()
@@ -71,6 +88,8 @@ class Flashlight(object):
             smart.set_plank(0)
         for ray in results:
             if ray[0]>=smart_ids[0] and ray[1]==-1:
-                index = smart_ids.index(ray[0])
-                if smarticles[index].light_plank(ray[3],self.yaw):
-                        p.addUserDebugLine(self.x, ray[3], self.ray_hit_color)
+            # if 1<=ray[0]<=smart_ids[0] and ray[1]==-1:
+                if ray[0] in smart_ids:
+                    index = smart_ids.index(ray[0])
+                    if smarticles[index].light_plank(ray[3],self.yaw):
+                            p.addUserDebugLine(self.x, ray[3], self.ray_hit_color)

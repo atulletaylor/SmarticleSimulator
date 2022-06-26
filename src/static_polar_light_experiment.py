@@ -11,16 +11,13 @@ from smarticlesimulation.flashlight import Flashlight
 import matplotlib as mpl
 mpl.use('TkAgg')
 import matplotlib.pyplot as plt
-
-
-
 mpl.style.use('seaborn')
 GUI = False
 
 #URDF paths
 urdf_dir = '../urdf/'
 smarticle_path = urdf_dir+'smarticle.urdf'
-ring_path = urdf_dir+'ring.urdf'
+ring_path = urdf_dir+'ring.urdf' #CHANGE RING HERE
 path_80_20 = urdf_dir+'80_20.urdf'
 table_path = urdf_dir+'table/table.urdf'
 flashlight_path = urdf_dir+'flashlight.urdf'
@@ -32,9 +29,9 @@ physicsClient = p.connect(server)#or p.DIRECT for non-graphical version
 runs = 10
 total_displacement = np.zeros(runs)
 z = 0.6
-fl = Flashlight(flashlight_path,[0,1,z+0.025], 3*np.pi/2)
+fl = Flashlight(flashlight_path,[0,1,z+0.025], 3*np.pi/2) #CHANGE Flashlight BEAM WIDTH???
 fl.set_polar_position([0,0],r=1,th=np.pi/2)
-n = 5
+n = 5 #CHANGE NUMBER OF SMARTICLES HERE
 R = [-1.7,1.7,1.7,-1.7]
 L = [1.7,1.7,-1.7,-1.7]
 dt = sim.time_to_steps(0.45)

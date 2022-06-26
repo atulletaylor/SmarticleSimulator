@@ -11,10 +11,10 @@ class Smarticle(object):
     EPS = 5e-3
     PR_LOC = 1e-3*np.array([[16,11.5,10],[-16,16,10]])
 
-    def __init__(self,urdf_path,\
+    def __init__(self,urdf_path,smartName = 'smart0', \
                  basePosition=None, baseOrientation= None, max_r=30e-3, debug = 0):
 
-
+        self.smartName = smartName
         self.x = np.zeros(3)
         self.pr_loc_global = np.zeros([2,3])
         self.hit = 0
@@ -67,7 +67,7 @@ class Smarticle(object):
     def load_gait(self, gait, gait_dt):
         '''DOC'''
         self.n = gait.shape[1]
-        self.gait_index = np.random.randint(0,self.n)
+        self.gait_index = 0 #where you start in the gait
         self.gait_period = gait_dt
         self.gait_phase = int(self.gait_period*np.random.rand())
         self.gaitL = gait[0]
@@ -133,3 +133,10 @@ class Smarticle(object):
 
                 self.set_plank(1)
                 return True
+
+    def return_position(self):
+        x = np.zeros((self.x.shape))
+        pos, orient = p.getBasePositionAndOrientation(self.id)
+        x[0:2]=np.array(pos[0:2])
+        x[2]=np.mod(p.getEulerFromQuaternion(orient)[2],2*np.pi)
+        return x
