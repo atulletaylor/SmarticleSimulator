@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="Smarticle_v3">
+  <link
+    name="base_linkv2">
+    <contact>
+        <lateral_friction value="0.5"/>
+        <angular_friction value="0.5"/>
+    </contact>
+    <inertial>
+      <origin
+        xyz="-1.3731E-18 0.0004 0.00042795"
+        rpy="0 0 0" />
+      <mass
+        value="0.0011628" />
+      <inertia
+        ixx="6.6584E-07"
+        ixy="-6.5952E-26"
+        ixz="-5.8643E-23"
+        iyy="7.0794E-07"
+        iyz="-2.635E-25"
+        izz="4.2217E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/base_linkv2.STL" />
+      </geometry>
+      <material
+        name="gray">
+        <color
+          rgba="0.4 0.4 0.4 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/base_linkv2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="arm_leftv2">
+    <contact>
+        <lateral_friction value="0."/>
+    </contact>
+    <inertial>
+      <origin
+        xyz="6.90984468435614E-18 -0.0018034471281212 -0.0399613260347562"
+        rpy="0 0 0" />
+      <mass
+        value="0.00128" />
+      <inertia
+        ixx="6.82734933333333E-07"
+        ixy="-7.90252557541997E-25"
+        ixz="2.76515070788411E-23"
+        iyy="7.24492732415157E-07"
+        iyz="-2.39392195336763E-08"
+        izz="4.35755342515089E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/arm_leftv2.STL" />
+      </geometry>
+      <material
+        name="blue">
+        <color
+          rgba="0.36 0.54 0.66 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/arm_leftv2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="servo_leftv2"
+    type="revolute">
+    <origin
+      xyz="0 0.0008 -0.04"
+      rpy="0 0 0" />
+    <parent
+      link="base_linkv2" />
+    <child
+      link="arm_leftv2" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0.01"
+      velocity="0.52" />
+  </joint>
+  <link
+    name="arm_rightv2">
+    <contact>
+        <lateral_friction value="0"/>
+    </contact>
+    <inertial>
+      <origin
+        xyz="-6.90108050025722E-17 0.000264935508284414 0.0400011225989529"
+        rpy="0 0 0" />
+      <mass
+        value="0.00128" />
+      <inertia
+        ixx="6.82734933333333E-07"
+        ixy="1.26744858659438E-24"
+        ixz="3.33834202951877E-23"
+        iyy="7.25144737478281E-07"
+        iyz="-1.13445872780218E-08"
+        izz="4.29235291883854E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/arm_rightv2.STL" />
+      </geometry>
+      <material
+        name="red">
+        <color
+          rgba="0.83 0.13 0.18 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/arm_rightv2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="servo_rightv2"
+    type="revolute">
+    <origin
+      xyz="0 0.0008 0.04"
+      rpy="0 0 0" />
+    <parent
+      link="base_linkv2" />
+    <child
+      link="arm_rightv2" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0.01"
+      velocity="0.52" />
+  </joint>
+</robot>

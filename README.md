@@ -11,6 +11,7 @@ Example simulation (3 smarticles in a ring on a table top):
 python simple_sim.py
 
 General-use simulation:
+python simulation.py
 This file loads a user specified number of permanently active and inactive smarticles and a ring object. Optionally one can load a flashlight object that activates the light sensors on the smarticles, causing active smarticles to become inactive. After the prespecified run time has passed, data will be saved in a folder called Trial_MM-DD_HH:MinMin. Each episode will be saved in a csv file called Episode_ITERATIONNUMBER.
 
 Variables located in simulation.py

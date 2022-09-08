@@ -25,7 +25,7 @@ else:
 
 
 # sys.path.append("/home/darpa/Documents/Code/Smarticles/SmarticleSimulation2/src/")
-#Allows you to use built-in URDF files from pybullet
+#Allows you to use built-in URDF files from pybullet (plane)
 p.setAdditionalSearchPath(pybullet_data.getDataPath())
 p.setGravity(0,0,-10)
 
@@ -33,7 +33,8 @@ p.setGravity(0,0,-10)
 runs = 10
 total_displacement = np.zeros(runs)
 #URDF paths
-smarticle_path = '../urdf/smarticle.urdf'
+# smarticle_path = '../urdf/smarticle.urdf'
+smarticle_path = '../urdf/Smarticle_v3.urdf'
 ring_path = '../urdf/ring.urdf'
 flashlight_path = '../urdf/flashlight.urdf'
 
@@ -41,26 +42,41 @@ plane = p.loadURDF('plane.urdf')
 
 #Define initial position and orientation of the smarticles relative to each other
 dx = 0.032 #Spacing between smarticles when they initially load
-th = np.pi/2
+th = np.pi/2 #orientation of the smarticle body initial
 
 #Define gait in radians (arm angles)
-R = [-1.7,1.7,1.7,-1.7]
-L = [1.7,1.7,-1.7,-1.7]
+# R = [-1.7,1.7,1.7,-1.7]
+# L = [1.7,1.7,-1.7,-1.7]
+L = [0,1.57,1.57,0]
+R = [0,-1.57,-1.57,0]
 
 #Define how long it takes to get through one gait cycle for each smarticle
 dt = sim.time_to_steps(0.45)
-#affected by ray checking
-num_smart_active = 3
-active = sim.load_smarticles(num_smart_active,smarticle_path, [L,R], dt, 0.025, dx, th)
+
+#loading ring
+r = p.loadURDF(ring_path, basePosition = [0.025,0,0])
+z = 0.001
+
+#two seperate groups of smarticles
+#affected by ray checking (possible to inactivation with ``light")
+num_smart_active = 30
+num_smart_active_batch = 5
+z = 0.025
+active = sim.load_smarticles(5,smarticle_path, [L,R], dt, 0.025, dx, th)
+for num in range(num_smart_active-5):
+    if num%5==0:
+        active = active + sim.load_smarticles(num_smart_active_batch,smarticle_path, [L,R], dt, z, dx, th)
+        z +=0.1
+print(len(active))
 #inactive for the whole run
 num_smart_inactive = 0
 inactive = sim.load_smarticles(num_smart_inactive,smarticle_path, [L,R], dt, 0.025, dx, th) #need to change dx to be relative to the active smarticles
-r = p.loadURDF(ring_path, basePosition = [0,0,0.025])
-z = 0.6
 
-#time allotted before smarticles start their gait
-sim_time = 480.
-for i in range (2*int(sim_time)):
+
+
+#time allotted before smarticles start their gait to allow files to load
+pre_sim_time = 480.
+for i in range(2*int(pre_sim_time)):
     p.stepSimulation()
 
 #for saving plots
@@ -104,7 +120,9 @@ for iter in range(runs):
 
     for a in active:
         a.reset_pose()
-    for i in range (240*1):
+
+    gait_freq = 240
+    for i in range (gait_freq*1):
         p.stepSimulation()
         for a in active:
             if i%dt==a.gait_phase:
@@ -113,10 +131,10 @@ for iter in range(runs):
     plot_ii = 0
     ####### SIMULATION MAIN LOOP #######
     for i in range (t_steps):
-        time.sleep(1/(sim_time/2))
-
+        time.sleep(1/(pre_sim_time/2))
         #### COLLECTING DATA TO PLOT ####
-        if i%40==0:
+        data_collection_freq = 40
+        if i%data_collection_freq==0:
             pos,_ = p.getBasePositionAndOrientation(r)
             loop_list  = []
             for a in active:

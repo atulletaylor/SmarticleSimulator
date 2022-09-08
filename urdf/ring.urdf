@@ -27,12 +27,13 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/20mm_ring.STL" scale="1 1 1" />
+          filename="../meshes/20mm_ring.STL" scale="10 10 20" />
       </geometry>
       <material
         name="">
         <color
-          rgba="0.298039215686275 0.298039215686275 0.298039215686275 1" />
+          rgba="0.298039215686275 0.298039215686275 0.298039215686275 0.5" />
+
       </material>
     </visual>
     <collision>
@@ -41,7 +42,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="../meshes/20mm_ring.obj" scale="1 1 1" />
+          filename="../meshes/20mm_ring.obj" scale="10 10 20" />
       </geometry>
     </collision>
   </link>

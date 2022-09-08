@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="simpleBody">
+  <link
+    name="Wing_links">
+    <contact>
+    	<lateral_friction value="0.15"/>
+    	<angular_friction value="0.3"/>
+    </contact>
+    <inertial>
+      <origin
+        xyz="-3.619E-18 0.0004 -0.00013367"
+        rpy="0 0 0" />
+      <mass
+        value="0.0037228" />
+      <inertia
+        ixx="2.0313E-06"
+        ixy="7.7595E-24"
+        ixz="-6.7887E-23"
+        iyy="2.1586E-06"
+        iyz="2.2812E-23"
+        izz="1.2769E-07" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/Wing_links.STL" />
+      </geometry>
+      <material
+        name="gray">
+        <color
+          rgba="0.4 0.4 0.4 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/Wing_links.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Left_Wing">
+    <inertial>
+      <origin
+        xyz="6.29533811903332E-18 0.0004 0.0421228180776159"
+        rpy="0 0 0" />
+      <mass
+        value="0.0024428" />
+      <inertia
+        ixx="1.3485795649656E-06"
+        ixy="-6.54160837574447E-25"
+        ixz="-2.27335355306084E-22"
+        iyy="1.4332711529656E-06"
+        iyz="1.22491280770396E-25"
+        izz="8.49521533333334E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/Left_Wing.STL" />
+      </geometry>
+      <material
+        name="blue">
+        <color
+          rgba="0.36 0.54 0.66 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/Left_Wing.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Left_Wing"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="Wing_links" />
+    <child
+      link="Left_Wing" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="-1.8"
+      upper="1.7"
+      effort="0.01"
+      velocity="6" />
+  </joint>
+  <link
+    name="Right_Wings">
+    <contact>
+        <lateral_friction value="0"/>
+    </contact>
+    <inertial>
+      <origin
+        xyz="-1.36684117726962E-18 0.000399999999999998 -0.0417154003602423"
+        rpy="0 0 0" />
+      <mass
+        value="0.0024428" />
+      <inertia
+        ixx="1.3485795649656E-06"
+        ixy="-7.23770242282646E-26"
+        ixz="4.16299945780395E-24"
+        iyy="1.4332711529656E-06"
+        iyz="-8.33690959684972E-23"
+        izz="8.49521533333334E-08" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/Right_Wings.STL" />
+      </geometry>
+      <material
+        name="red">
+        <color
+          rgba="0.83 0.13 0.18 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="../meshes/Right_Wings.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Right_Wings"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="Wing_links" />
+    <child
+      link="Right_Wings" />
+    <axis
+      xyz="0 0 0" />
+    <limit
+      lower="-1.7"
+      upper="1.7"
+      effort="0.01"
+      velocity="6" />
+  </joint>
+</robot>
